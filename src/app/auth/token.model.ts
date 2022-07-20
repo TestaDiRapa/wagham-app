@@ -6,7 +6,7 @@ export class Token {
   public discordToken: string;
   public discordExpiration: Date;
   public discordRefreshToken: string;
-  public role: string;
+  public role: UserType;
 
   constructor(json: TokenData) {
     this.accessToken = json.access_token;
@@ -34,5 +34,16 @@ export interface TokenData {
   discord_token: string;
   discord_expiration: number;
   discord_refresh_token: string;
-  role: string;
+  role: UserType;
+}
+
+export enum UserType {
+  admin = 'I Cavalieri di Malto',
+  master3 = 'Master 3',
+  master2 = 'Master 2',
+  master1 = 'Master 1',
+  helper = 'Delegato di Gilda',
+  player = 'Gildano',
+  newPlayer = 'Aspirante Gildano',
+  outsider = 'NOT_IN_SERVER'
 }
