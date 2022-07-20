@@ -10,10 +10,10 @@ export class Token {
 
   constructor(json: TokenData) {
     this.accessToken = json.access_token;
-    this.expiresIn = new Date(new Date().getMilliseconds() + json.expires_in*1000);
+    this.expiresIn = new Date(new Date().getTime() + json.expires_in*1000);
     this.refreshToken = json.refresh_token;
     this.discordToken = json.discord_token;
-    this.discordExpiration = new Date(new Date().getMilliseconds() + json.discord_expiration*1000);
+    this.discordExpiration = new Date(new Date().getTime() + json.discord_expiration*1000);
     this.discordRefreshToken = json.discord_refresh_token;
     this.role = json.role;
   }

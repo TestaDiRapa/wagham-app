@@ -10,18 +10,23 @@ const routes: Routes = [
     children: [
       {
         path: 'character',
-        loadChildren: () => import('./character/character.module').then( m => m.CharacterPageModule)
+        loadChildren: () => import('./character/character.module').then( m => m.CharacterPageModule),
+        canLoad: [AuthGuard]
+      },
+      {
+        path: 'home',
+        loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
       },
       {
         path: '',
-        redirectTo: '/tabs/character',
+        redirectTo: '/tabs/home',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/character',
+    redirectTo: '/tabs/home',
     pathMatch: 'full'
   }
 ];

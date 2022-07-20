@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   waghamApi: 'http://127.0.0.1:5000',
   // eslint-disable-next-line max-len
-  discordAuthUrl: 'https://discord.com/api/oauth2/authorize?client_id=867838410064658481&redirect_uri=http%3A%2F%2Flocalhost%3A8100%2Ftabs%2Fcharacter&response_type=code&scope=guilds.members.read%20identify'
+  discordAuthUrl: 'https://discord.com/api/oauth2/authorize?client_id=867838410064658481&redirect_uri=http%3A%2F%2Flocalhost%3A8100%2Ftabs%2Fhome&response_type=code&scope=identify%20guilds.members.read'
 };
 
 /*
