@@ -20,6 +20,10 @@ export class Token {
     this.role = json.role;
   }
 
+  static fromJSONString(json: string): Token {
+    return new Token(JSON.parse(json) as TokenData);
+  }
+
   isValid(): boolean {
     return new Date() < this.expiresIn;
   }
@@ -37,6 +41,18 @@ export class Token {
       discord_expiration: params.discordExpiration ?? (this.discordExpiration.getTime() - new Date().getTime()) / 1000,
       discord_refresh_token: params.discordRefreshToken ?? this.discordRefreshToken,
       role: params.role ?? this.role
+    });
+  }
+
+  toJSONString(): string {
+    return JSON.stringify({
+      access_token: this.accessToken,
+      expires_in: (this.expiresIn.getTime() - new Date().getTime()) / 1000,
+      refresh_token: this.refreshToken,
+      discord_token: this.discordToken,
+      discord_expiration: (this.discordExpiration.getTime() - new Date().getTime()) / 1000,
+      discord_refresh_token: this.discordRefreshToken,
+      role: this.role
     });
   }
 }

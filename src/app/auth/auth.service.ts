@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { BehaviorSubject, from, Observable, of } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { RefreshTokenData, Token, TokenData } from './token.model';
+import { Storage } from '@capacitor/storage';
 
 @Injectable({
   providedIn: 'root',
@@ -39,6 +40,7 @@ export class AuthService {
                   role: refreshTokenData.role,
                 });
                 this._token.next(newToken);
+                this.storeToken(newToken);
                 return newToken;
               })
             );
@@ -61,12 +63,28 @@ export class AuthService {
         map((responseData) => {
           const newToken = new Token(responseData);
           this._token.next(newToken);
+          this.storeToken(newToken);
           return newToken;
         })
       );
   }
 
-  logout() {
+  logout(): void {
     this._token.next(null);
+    Storage.remove({key: 'authToken'});
+  }
+
+  restoreToken(): void {
+    Storage.get({key: 'authToken'}).then( savedToken => {
+      if (!!savedToken.value) {
+        const newToken = Token.fromJSONString(savedToken.value);
+        console.log(newToken);
+        this._token.next(newToken);
+      }
+    });
+  }
+
+  private storeToken(token: Token): void {
+    Storage.set({key: 'authToken', value: token.toJSONString()});
   }
 }

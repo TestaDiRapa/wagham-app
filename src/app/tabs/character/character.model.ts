@@ -40,6 +40,10 @@ export class Character {
     this.proficiencies = data.proficiencies;
   }
 
+  MSToInt() {
+    return Math.floor(this.ms);
+  }
+
 }
 
 export interface CharacterData {
@@ -102,4 +106,9 @@ export enum CharacterStatus {
   npc = 'npc',
   retired = 'retired',
   traitor = 'traitor'
+}
+
+export interface MSTable {
+  mstable: number[];
+  leveltable: number[];
 }
