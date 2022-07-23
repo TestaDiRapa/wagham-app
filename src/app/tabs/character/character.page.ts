@@ -17,6 +17,7 @@ import { CharacterService } from './character.service';
 export class CharacterPage implements OnInit, OnDestroy {
   loadedCharacter: Character = null;
   msTable: MSTable = null;
+  screenWidth: number = window.screen.width;
   private characterSubscription: Subscription;
 
   constructor(

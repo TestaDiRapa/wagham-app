@@ -6,6 +6,7 @@ export class Character {
   name: string;
   player: string;
   race: string;
+  class: string;
   territory: Territories;
   status: CharacterStatus;
   ms: number;
@@ -25,6 +26,7 @@ export class Character {
     this.name = data._id;
     this.player = data.player;
     this.race = data.race;
+    this.class = data.class;
     this.territory = data.territory;
     this.status = data.status;
     this.ms = (data.sessionMS + data.masterMS + data.PBCMS + data.errataMS);
@@ -50,6 +52,7 @@ export interface CharacterData {
   _id: string;
   player: string;
   race: string;
+  class: string;
   territory: Territories;
   status: CharacterStatus;
   masterMS: number;
