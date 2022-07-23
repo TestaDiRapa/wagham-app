@@ -20,6 +20,7 @@ export class HomePage implements OnInit, OnDestroy {
   userRole = null;
   logoPath = `${environment.waghamApi}/content/images/logo.png`;
   private browserSubscription: Subscription = null;
+  private roleSubscription: Subscription = null;
 
   constructor(
     private authService: AuthService,
@@ -32,10 +33,18 @@ export class HomePage implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (!!this.browserSubscription) {
       this.browserSubscription.unsubscribe();
+      this.roleSubscription.unsubscribe();
     }
   }
 
   ngOnInit(): void {
+    this.roleSubscription = this.authService.token.subscribe(token => {
+      if(!!token) {
+        this.userRole = token.role;
+      } else {
+        this.userRole = null;
+      }
+    });
   }
 
   ionViewWillEnter(): void {

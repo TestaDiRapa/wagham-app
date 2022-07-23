@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-underscore-dangle */
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaderResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, from, Observable, of } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
@@ -21,9 +21,9 @@ export class AuthService {
         if (!token) {
           return of(token);
         } else if (!token.isValid()) {
-          const headers = new HttpHeaders();
-          headers.set('Authorization', `Bearer ${token.refreshToken}`);
-          headers.set('Content-Type', 'application/json');
+          const headers = new HttpHeaders()
+            .set('Authorization', `Bearer ${token.refreshToken}`)
+            .set('Content-Type', 'application/json');
           return this.http
             .post<RefreshTokenData>(
               `${environment.waghamApi}/refresh`,
@@ -64,5 +64,9 @@ export class AuthService {
           return newToken;
         })
       );
+  }
+
+  logout() {
+    this._token.next(null);
   }
 }

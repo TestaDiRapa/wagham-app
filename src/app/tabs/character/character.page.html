@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title class="ion-text-center">Accedi per visualizzare il tuo personaggio</ion-title>
+    <ion-title class="ion-text-center">{{ !!loadedCharacter ? loadedCharacter.name : 'Caricamento' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
