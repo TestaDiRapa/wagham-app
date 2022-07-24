@@ -107,3 +107,65 @@ export enum Proficiencies {
   instrumentShawn = 'Musical instrument - Shawm',
   instrumentViol = 'Musical instrument - Viol'
 }
+
+export enum ProficienciesCraft {
+  alchemist = 'Alchemist\'s supplies',
+  calligrapher = 'Calligrapher\'s supplies',
+  carpenter = 'Carpenter\'s tools',
+  cartographer = 'Cartographer\'s tools',
+  cobbler = 'Cobbler\'s tools',
+  cookBrewer = 'Cook\'s and Brewer\'s tools',
+  herbalism = 'Herbalism kit',
+  jeweler = 'Jeweler\'s tools',
+  leatherworker = 'Leatherworker\'s tools',
+  mason = 'Mason\'s tools',
+  painter = 'Painter\'s supplies',
+  poisoner = 'Poisoner\'s kit',
+  smith = 'Smith\'s tools',
+  tinker = 'Tinker\'s tools'
+}
+
+export enum Manuals {
+  dmg = 'DMG',
+  phb = 'PHB',
+  xgte = 'XGTE',
+  tce = 'TCE',
+  ggr = 'GGR',
+  egw = 'EGW',
+  tftyp = 'TftYP',
+  pota = 'POTA',
+  ai = 'AI',
+  wdmm = 'WDMM',
+  skt = 'SKT',
+  oota = 'OotA',
+  erlw = 'ERLW',
+  wdh = 'WDH',
+  cos = 'CoS',
+  bgdia = 'BGDIA',
+  toa = 'ToA',
+  mot = 'MOT',
+  idrotf = 'IDRotF',
+  hotdq = 'HotDQ',
+  mm = 'MM',
+  lmop = 'LMoP',
+  vgm = 'VGM',
+  rotos = 'RoTOS',
+  mtf = 'MTF',
+  gos = 'GOS',
+  rot = 'ROT',
+  sdw = 'SDW',
+  rmbre = 'RMBRE',
+  hftt = 'HftT',
+  bw = 'ByWagham',
+  dc = 'DC',
+  ftd = 'FTD',
+  cm = 'CM'
+};
+
+export enum Tier {
+  t1 = 'T1',
+  t2 = 'T2',
+  t3 = 'T3',
+  t4 = 'T4',
+  t5 = 'T5'
+}
