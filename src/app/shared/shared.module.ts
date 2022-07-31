@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { ResponsiveTableComponent } from './responsive-table/responsive-table.component';
+import { ItemResponsiveTableComponent } from './responsive-table/responsive-table.component';
 
 @NgModule({
-  declarations: [ResponsiveTableComponent],
+  declarations: [ItemResponsiveTableComponent],
   imports: [CommonModule, IonicModule],
-  exports: [ResponsiveTableComponent]
+  exports: [ItemResponsiveTableComponent]
 })
 export class SharedModule {}

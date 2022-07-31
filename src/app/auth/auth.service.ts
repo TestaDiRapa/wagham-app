@@ -3,8 +3,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaderResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { BehaviorSubject, from, Observable, of } from 'rxjs';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
 import { RefreshTokenData, Token, TokenData } from './token.model';
 import { Storage } from '@capacitor/storage';
 
