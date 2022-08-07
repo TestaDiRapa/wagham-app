@@ -94,6 +94,23 @@ export class ItemTableRow implements TableRow {
     ];
   }
 
+  header(): {[key: string]: string} {
+    return {
+      name: 'Oggetto',
+      category: 'Categoria',
+      buyPrice: 'Prezzo di acquisto dal BOT',
+      sellPrice: 'Prezzo di vendita al BOT',
+      craftTools: 'Strumenti',
+      attunement: 'Attunement',
+      craftMoCost: 'Costo craft (MO)',
+      tier: 'Tipo/Tier TBadge consumati nel Craft',
+      craftTbadge: 'Quantità TBadge consumati nel craft',
+      craftTotalCost: 'Costo Totale di Craft (mo + Tbadge)',
+      manual: 'Fonte',
+      link: 'Link descrizione'
+    };
+  }
+
   compare(anyOther: any, key: string): number {
     const other = anyOther as ItemTableRow;
     if(key === 'buyPrice') {

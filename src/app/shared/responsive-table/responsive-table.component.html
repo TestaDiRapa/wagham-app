@@ -1,9 +1,35 @@
 <ion-grid>
-  <ion-row *ngFor="let row of pageData">
-    <ion-col *ngFor="let key of keys">
+  <ion-row>
+    <ion-col *ngIf="hiddenKeys.length > 0"></ion-col>
+    <ion-col *ngFor="let key of visibleKeys">
       <ion-label>
-        {{ row[key] }}
+        {{ header[key] }}
       </ion-label>
     </ion-col>
   </ion-row>
+  <span *ngFor="let row of pageData; let i = index">
+    <ion-row>
+      <ion-col *ngIf="hiddenKeys.length > 0">
+
+      </ion-col>
+      <ion-col *ngFor="let vKey of visibleKeys">
+        <ion-label>
+          {{ row[vKey] }}
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="visibleInfo[i]">
+      <ion-col>
+        <ion-list>
+          <ion-item *ngFor="let hKey of hiddenKeys">
+            <ion-text><b>{{ header[hKey] }}:</b> {{ row[hKey] }}</ion-text>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </span>
 </ion-grid>
+
+<ion-infinite-scroll threshold="10%" (ionInfinite)="loadData($event)">
+  <ion-infinite-scroll-content></ion-infinite-scroll-content>
+</ion-infinite-scroll>

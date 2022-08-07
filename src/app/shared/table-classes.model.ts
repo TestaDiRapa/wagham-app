@@ -10,13 +10,15 @@ export interface TableRow {
 
   keys(): string[];
 
+  header(): {[key: string]: string};
+
   compare(anyOther: any, key: string): number;
 
 }
 
 export class PaginatedTable<T extends TableRow> {
-  private index = 0;
-  private currentPage = new BehaviorSubject<T[]>(this.array.slice(this.index, this.index+this.pageSize));
+  private index = this.pageSize;
+  private currentPage = new BehaviorSubject<T[]>(this.array.slice(0, this.index));
 
   constructor(
     private array: T[],
@@ -36,22 +38,28 @@ export class PaginatedTable<T extends TableRow> {
     }
   }
 
+  get header(): {[key: string]: string} {
+    if(this.array.length > 0) {
+      return this.array[0].header();
+    }
+    else {
+      return {};
+    }
+  }
+
   get length(): number {
     return this.array.length;
   }
 
-  next(): void {
-    if ((this.index + this.pageSize) < (this.array.length - 1)) {
-      this.index = this.index + this.pageSize;
-    }
-    this.currentPage.next(this.array.slice(this.index, this.index+this.pageSize));
+  get finished(): boolean {
+    return this.index >= this.array.length;
   }
 
-  previous(): void {
-    if ((this.index - this.pageSize) >= 0 ) {
-      this.index = this.index - this.pageSize;
+  loadMore(): void {
+    if(this.index < this.array.length) {
+      this.index += this.pageSize;
     }
-    this.currentPage.next(this.array.slice(this.index, this.index+this.pageSize));
+    this.currentPage.next(this.array.slice(0, this.index));
   }
 
   sort(key: string): void {

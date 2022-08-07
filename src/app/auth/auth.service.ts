@@ -78,7 +78,6 @@ export class AuthService {
     Storage.get({key: 'authToken'}).then( savedToken => {
       if (!!savedToken.value) {
         const newToken = Token.fromJSONString(savedToken.value);
-        console.log(newToken);
         this._token.next(newToken);
       }
     });
