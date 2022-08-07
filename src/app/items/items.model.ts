@@ -66,7 +66,7 @@ export class ItemTableRow implements TableRow {
     public craftTbadge: number,
     public craftTotalCost: number,
     public manual: string,
-    public link: string,
+    public _link: string,
   ) {}
 
   get buyPrice() {
@@ -75,6 +75,10 @@ export class ItemTableRow implements TableRow {
     } else {
       return this._buyPrice;
     }
+  }
+
+  get link() {
+    return this._link;
   }
 
   keys(): string[] {

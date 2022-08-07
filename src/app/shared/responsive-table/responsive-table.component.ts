@@ -4,40 +4,44 @@ import { Subscription } from 'rxjs';
 import { ItemTableRow } from 'src/app/items/items.model';
 import { PaginatedTable, TableRow, Tabulable } from '../table-classes.model';
 
+const viewportCols = {
+  400: 2,
+  700: 3,
+  900: 4,
+  1280: 5,
+  1920: 7
+};
+
 @Component({
   selector: 'app-responsive-table',
   templateUrl: './responsive-table.component.html',
   styleUrls: ['./responsive-table.component.scss'],
 })
-export class ResponsiveTableComponent<T extends TableRow> implements AfterViewInit, OnInit, OnDestroy {
+export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnDestroy {
   @Input() data: PaginatedTable<T>;
   pageSubscription: Subscription;
   pageData: T[];
   visibleKeys: string[] = [];
   hiddenKeys: string[] = [];
   header: {[key: string]: string} = {};
-  colLimit = 5;
+  colLimit: number;
   visibleInfo: boolean[];
-  private viewportWidth: number;
 
   constructor(private platform: Platform) { }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.viewportWidth = window.innerWidth;
-    console.log(this.viewportWidth);
+    this.resizeColumns(window.innerWidth);
   }
 
   ngOnInit(): void {
     if (!!this.data && this.data.length > 0) {
-      this.visibleKeys = this.data.keys.splice(0, this.colLimit);
-      this.hiddenKeys = this.data.keys.splice(this.colLimit, this.data.keys.length);
       this.header = this.data.header;
       this.visibleInfo = new Array(this.data.length).fill(false);
       this.pageSubscription = this.data.page.subscribe( data => {
         this.pageData = data;
       });
-      this.viewportWidth = this.platform.width();
+      this.resizeColumns(this.platform.width());
     }
 
   }
@@ -46,12 +50,20 @@ export class ResponsiveTableComponent<T extends TableRow> implements AfterViewIn
     if (!!this.pageSubscription) {this.pageSubscription.unsubscribe();}
   }
 
-  ngAfterViewInit(): void {
-    this.resizeColumns();
-  }
-
-  resizeColumns() {
-    console.log(this.platform.width());
+  resizeColumns(width: number): void {
+    if (width >= 1920) {
+      this.colLimit = 7;
+    } else if (width > 1280) {
+      this.colLimit = 5;
+    } else if (width > 900) {
+      this.colLimit = 4;
+    } else if (width > 700) {
+      this.colLimit = 3;
+    } else {
+      this.colLimit = 2;
+    }
+    this.visibleKeys = this.data.keys.splice(0, this.colLimit);
+    this.hiddenKeys = this.data.keys.splice(this.colLimit, this.data.keys.length);
   }
 
   loadData(event): void {
