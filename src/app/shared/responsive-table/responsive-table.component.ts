@@ -54,10 +54,14 @@ export class ResponsiveTableComponent<T extends TableRow> implements AfterViewIn
     console.log(this.platform.width());
   }
 
-  loadData(event) {
+  loadData(event): void {
     this.data.loadMore();
     event.target.complete();
     event.target.disabled = this.data.finished;
+  }
+
+  toggleInfo(index: number): void {
+    this.visibleInfo[index] = !this.visibleInfo[index];
   }
 }
 
