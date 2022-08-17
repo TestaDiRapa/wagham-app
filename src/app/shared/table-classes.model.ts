@@ -1,4 +1,5 @@
 import { BehaviorSubject, Observable } from 'rxjs';
+import Fuse from 'fuse.js';
 
 export interface Tabulable<T> {
 
@@ -19,6 +20,7 @@ export interface TableRow {
 export class PaginatedTable<T extends TableRow> {
   private index = this.pageSize;
   private currentPage = new BehaviorSubject<T[]>(this.array.slice(0, this.index));
+  private cleanArray = [...this.array];
 
   constructor(
     private array: T[],
@@ -64,6 +66,17 @@ export class PaginatedTable<T extends TableRow> {
 
   sort(key: string): void {
     this.array = this.array.sort((obj1: T, obj2: T) => obj1.compare(obj2, key));
-    this.currentPage.next(this.array.slice(this.index, this.index+this.pageSize));
+    this.currentPage.next(this.array.slice(0, this.index));
+  }
+
+  search(query: string, keys: string[]): void {
+    if (!query || query.length === 0) {
+      this.array = [...this.cleanArray];
+    } else {
+      const searcher = new Fuse(this.cleanArray, {keys, threshold: 0.35});
+      this.array = searcher.search(query).map( (it) => it.item );
+    }
+    this.index = this.pageSize;
+    this.currentPage.next(this.array.slice(0, this.index));
   }
 }

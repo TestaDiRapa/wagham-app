@@ -58,27 +58,79 @@ export class ItemTableRow implements TableRow {
     public name: string,
     public category: string,
     public _buyPrice: number,
-    public sellPrice: number,
-    public craftTools: ProficienciesCraft[],
-    public attunement: boolean,
-    public craftMoCost: number,
-    public tier: string,
-    public craftTbadge: number,
-    public craftTotalCost: number,
+    public _sellPrice: number,
+    public _craftTools: ProficienciesCraft[],
+    public _attunement: boolean,
+    public _craftMoCost: number,
+    public _tier: string,
+    public _craftTbadge: number,
+    public _craftTotalCost: number,
     public manual: string,
     public _link: string,
   ) {}
 
   get buyPrice() {
-    if(this._buyPrice === 0) {
+    if(!this._craftTools || this._buyPrice === 0) {
       return 'Non acquistable';
     } else {
       return this._buyPrice;
     }
   }
 
+  get sellPrice() {
+    if(!this._sellPrice || this._sellPrice === 0) {
+      return 'Non vendibile';
+    } else {
+      return this._sellPrice;
+    }
+  }
+
+  get craftMoCost() {
+    if(!this._craftMoCost || this._craftMoCost === 0) {
+      return 'Non craftabile';
+    } else {
+      return this._craftMoCost;
+    }
+  }
+
+  get craftTotalCost() {
+    if(!this._craftTotalCost || this._craftTotalCost === 0) {
+      return 'Non craftabile';
+    } else {
+      return this._craftTotalCost;
+    }
+  }
+
+  get craftTbadge() {
+    if(!this._craftTbadge || this._craftTbadge === 0) {
+      return 'Non craftabile';
+    } else {
+      return this._craftTbadge;
+    }
+  }
+
   get link() {
     return this._link;
+  }
+
+  get tier() {
+    if(!this._tier) {
+      return 'Non craftabile';
+    } else {
+      return this._tier;
+    }
+  }
+
+  get craftTools() {
+    if(!this._craftTools || this._craftTools.length === 0) {
+      return 'Non craftabile';
+    } else {
+      return this._craftTools.join(', ');
+    }
+  }
+
+  get attunement() {
+    return this._attunement ? 'Sì' : 'No';
   }
 
   keys(): string[] {

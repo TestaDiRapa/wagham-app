@@ -75,6 +75,10 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
   toggleInfo(index: number): void {
     this.visibleInfo[index] = !this.visibleInfo[index];
   }
+
+  onChange(value: string) {
+    this.data.search(value, ['name']);
+  }
 }
 
 @Component({

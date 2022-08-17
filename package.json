@@ -30,6 +30,7 @@
     "@capacitor/storage": "^1.2.5",
     "@ionic/angular": "^6.1.9",
     "cordova-plugin-inappbrowser": "^5.0.0",
+    "fuse.js": "^6.6.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
