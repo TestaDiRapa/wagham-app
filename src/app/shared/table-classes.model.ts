@@ -24,6 +24,7 @@ export class PaginatedTable<T extends TableRow> {
 
   constructor(
     private array: T[],
+    public sortFields: string[],
     private pageSize: number
   ) {}
 

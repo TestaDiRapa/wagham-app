@@ -27,7 +27,8 @@ export class ItemsPage implements OnInit, OnDestroy {
         items => {
           this.items = new PaginatedTable(
             items.map( it => it.toTableRow()),
-            30);
+            ['name', 'buyPrice', 'sellPrice'],
+            50);
         }
       );
   }

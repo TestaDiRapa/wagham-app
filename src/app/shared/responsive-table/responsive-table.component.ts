@@ -1,7 +1,8 @@
 import { Component, Input, OnDestroy, OnInit, AfterViewInit, HostListener } from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { ItemTableRow } from 'src/app/items/items.model';
+import { FilterModalComponent } from '../filter-modal/filter-modal.component';
 import { PaginatedTable, TableRow, Tabulable } from '../table-classes.model';
 
 const viewportCols = {
@@ -27,7 +28,10 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
   colLimit: number;
   visibleInfo: boolean[];
 
-  constructor(private platform: Platform) { }
+  constructor(
+    private modalCtrl: ModalController,
+    private platform: Platform
+  ) { }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -76,9 +80,19 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
     this.visibleInfo[index] = !this.visibleInfo[index];
   }
 
-  onChange(value: string) {
+  onChange(value: string): void {
     this.data.search(value, ['name']);
   }
+
+  filterModalOpen(): void {
+    this.modalCtrl.create({
+      component: FilterModalComponent,
+      componentProps: {sortFields: this.data.sortFields, sortNames: this.data.header}
+    }).then( modal => {
+      modal.present();
+    });
+  }
+
 }
 
 @Component({
